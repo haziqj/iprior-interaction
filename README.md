@@ -8,9 +8,10 @@ This contains the R code for our paper.
 
 The key documents are
 
-1.  `01-cow.R` contains the code for the functional response model in
+1.  `02-sims.R` and `03-sims_analysis.R` contains the code for the
+    simulations in Section 5.
+2.  `01-cow.R` contains the code for the functional response model in
     Section 6.
-2.  `02-sims.R` contains the code for the simulations in Section 5.
 
 In this README, the main summary of findings are presented.
 
@@ -75,3 +76,5 @@ true model. Higher is better.
 | 8   | 1111111 |   0.43 |  0.15 |      0.06 |   0.77 |
 
 ## Functional response model
+
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->

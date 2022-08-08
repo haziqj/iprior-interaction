@@ -14,6 +14,8 @@ library(tidyverse)
 library(iprior)
 library(kableExtra)
 library(ggradar)
+theme_set(theme_classic())
+knitr::read_chunk("01-cow.R")
 ```
 
 This contains the R code for our paper.
@@ -22,8 +24,8 @@ This contains the R code for our paper.
 
 The key documents are
 
-1.  `01-cow.R` contains the code for the functional response model in Section 6.
-2.  `02-sims.R` contains the code for the simulations in Section 5.
+1.  `02-sims.R` and `03-sims_analysis.R` contains the code for the simulations in Section 5.
+2.  `01-cow.R` contains the code for the functional response model in Section 6.
 
 In this README, the main summary of findings are presented.
 
@@ -71,3 +73,20 @@ res_tab1 %>%
 ```
 
 ## Functional response model
+
+```{r}
+<<load_cow_data>>
+<<plot_cow_data>>
+```
+
+
+
+
+
+
+
+
+
+
+
+

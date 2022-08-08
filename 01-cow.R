@@ -2,13 +2,23 @@
 library(iprior)
 library(tidyverse)
 library(kableExtra)
+theme_set(theme_classic())
 
+## ---- load_cow_data --------
 data(cattle, package = "jmcm")
 names(cattle) <- c("id", "time", "group", "weight")
 cattle$id <- as.factor(cattle$id)  # convert to factors
 # levels(cattle$group) <- c("Treatment A", "Treatment B")
-str(cattle)
-write_csv(cattle, file = "cattle.csv")
+# str(cattle)
+# write_csv(cattle, file = "cattle.csv")
+
+## ---- plot_cow_data --------
+ggplot(cattle, aes(time, weight, group = id, col = group)) +
+  geom_line() +
+  labs(x = "Time (days)", y = "Weight (kg)", col = "Treatment\ngroup")
+
+## ---- est_cow_data --------
+
 
 est_all <- function(kernel = "fbm,0.5", est.hurst = FALSE) {
   
@@ -58,6 +68,7 @@ res2 <- est_all(kernel = "fbm,0.3", est.hurst = FALSE)
 # Estimate hurst
 res3 <- est_all(kernel = "fbm", est.hurst = TRUE)
 
+save(res1, res2, res3, file = "cowres.RData")
 
 
-kbl(res2[c(1,3,5,7,9),], format = "rst", digits = 3)
+# kbl(res2[c(1,3,5,7,9),], format = "rst", digits = 3)
