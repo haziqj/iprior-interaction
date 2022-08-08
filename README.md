@@ -41,7 +41,21 @@ The coefficients for the simulations were as follows.
 | 7   |   1 |   1 |   1 |  0.5 |  0.5 |  0.5 |   0.00 | 1111110 |
 | 8   |   1 |   1 |   1 |  0.5 |  0.5 |  0.5 |   0.25 | 1111111 |
 
+The results below show proportion of times that each method selected the
+true model. Higher is better.
+
 ### Uncorrelated errors
+
+|     | mod     | iprior | lasso | spikeslab | gprior |
+|:----|:--------|-------:|------:|----------:|-------:|
+| 1   | 1000000 |   0.69 |  0.21 |      0.60 |   0.46 |
+| 2   | 1100000 |   0.54 |  0.33 |      0.49 |   0.29 |
+| 3   | 1101000 |   0.52 |  0.11 |      0.15 |   0.04 |
+| 4   | 1110000 |   0.33 |  0.36 |      0.43 |   0.13 |
+| 5   | 1110100 |   0.33 |  0.15 |      0.17 |   0.01 |
+| 6   | 1111100 |   0.27 |  0.10 |      0.08 |   0.00 |
+| 7   | 1111110 |   0.15 |  0.09 |      0.06 |   0.00 |
+| 8   | 1111111 |   0.18 |  0.06 |      0.09 |   0.98 |
 
 ### Correlated errors
 

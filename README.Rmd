@@ -45,11 +45,9 @@ The coefficients for the simulations were as follows.
 kbl(beta_vals, format = "pipe", row.names = TRUE)
 ```
 
+The results below show proportion of times that each method selected the true model. Higher is better.
+
 ### Uncorrelated errors
-
-
-
-### Correlated errors
 
 ```{r}
 knitr::read_chunk("03-sims_analysis.R")
@@ -57,6 +55,15 @@ knitr::read_chunk("03-sims_analysis.R")
 
 ```{r, message = FALSE}
 <<simres_fn>>
+<<simres2>>
+res_tab %>%
+  kbl(format = "pipe", row.names = TRUE, digits = 2)
+```
+
+### Correlated errors
+
+
+```{r, message = FALSE}
 <<simres1>>
 res_tab %>%
   kbl(format = "pipe", row.names = TRUE, digits = 2)

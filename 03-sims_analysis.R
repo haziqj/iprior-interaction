@@ -38,4 +38,15 @@ res_tab %>%
   pivot_wider(names_from = method, values_from = prop) %>%
   replace(is.na(.), 0) -> res_tab
 
+## ---- simres2 ----
+load("simres_uncorr.RData")
+res_tab <- NULL
+for (i in seq_len(length(myres_uncorr))) {
+  res_tab <- bind_rows(res_tab,
+                       res_final_tab(myres_uncorr[[i]], beta_vals[i, 8, drop = TRUE]) 
+  )
+}
+res_tab %>% 
+  pivot_wider(names_from = method, values_from = prop) %>%
+  replace(is.na(.), 0) -> res_tab
 
