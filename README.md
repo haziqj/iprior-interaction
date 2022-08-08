@@ -25,8 +25,8 @@ x\_{i1}x\_{i2} + \beta_5 x\_{i1}x\_{i3} + \beta_6 x\_{i2}x\_{i3} +
 
 where $\epsilon_i\sim N(0,\sigma^2)$ such that
 $\text{Corr}(\epsilon_i,\epsilon_j)=\rho$, for $i\neq j$. The simulation
-settings were $n=100$, $$, ${0,0.5}$, and the simulations were repeated
-for a total of $B=10,000$ times.
+settings were $n=100$, $\sigma=3$, $\rho\in\\{0,0.5\\}$, and the
+simulations were repeated for a total of $B=10,000$ times.
 
 The coefficients for the simulations were as follows.
 
