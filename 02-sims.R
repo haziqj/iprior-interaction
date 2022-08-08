@@ -198,10 +198,7 @@ the_sim_fn <- function(nsim = 20, n = 200, corr = 0, err.sd = 1.5,
   the.output
 }
 
-
-
 ## ---- run_sim --------
-
 Nsim <- 10000
 
 # Correlated errors

@@ -5,6 +5,7 @@ options(dplyr.summarise.inform = FALSE)
 library(BAS)
 library(doSNOW)
 library(iprior)
+library(ggradar)
 theme_set(theme_classic())
 
 
@@ -36,7 +37,13 @@ for (i in seq_len(length(myres))) {
 }
 res_tab %>% 
   pivot_wider(names_from = method, values_from = prop) %>%
-  replace(is.na(.), 0) -> res_tab
+  replace(is.na(.), 0) -> res_tab1
+
+# Rada plot
+res_tab %>%
+  pivot_wider(names_from = mod, values_from = prop) %>%
+  replace(is.na(.), 0) %>%
+  ggradar()
 
 ## ---- simres2 ----
 load("simres_uncorr.RData")
@@ -48,5 +55,14 @@ for (i in seq_len(length(myres_uncorr))) {
 }
 res_tab %>% 
   pivot_wider(names_from = method, values_from = prop) %>%
-  replace(is.na(.), 0) -> res_tab
+  replace(is.na(.), 0) -> res_tab2
+
+# Rada plot
+res_tab %>%
+  pivot_wider(names_from = mod, values_from = prop) %>%
+  replace(is.na(.), 0) %>%
+  ggradar()
+
+
+
 

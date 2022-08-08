@@ -13,6 +13,7 @@ knitr::read_chunk("02-sims.R")
 library(tidyverse)
 library(iprior)
 library(kableExtra)
+library(ggradar)
 ```
 
 This contains the R code for our paper.
@@ -56,7 +57,7 @@ knitr::read_chunk("03-sims_analysis.R")
 ```{r, message = FALSE}
 <<simres_fn>>
 <<simres2>>
-res_tab %>%
+res_tab2 %>%
   kbl(format = "pipe", row.names = TRUE, digits = 2)
 ```
 
@@ -65,7 +66,7 @@ res_tab %>%
 
 ```{r, message = FALSE}
 <<simres1>>
-res_tab %>%
+res_tab1 %>%
   kbl(format = "pipe", row.names = TRUE, digits = 2)
 ```
 

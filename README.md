@@ -46,6 +46,8 @@ true model. Higher is better.
 
 ### Uncorrelated errors
 
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
 |     | mod     | iprior | lasso | spikeslab | gprior |
 |:----|:--------|-------:|------:|----------:|-------:|
 | 1   | 1000000 |   0.69 |  0.21 |      0.60 |   0.46 |
@@ -58,6 +60,8 @@ true model. Higher is better.
 | 8   | 1111111 |   0.18 |  0.06 |      0.09 |   0.98 |
 
 ### Correlated errors
+
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 |     | mod     | iprior | lasso | spikeslab | gprior |
 |:----|:--------|-------:|------:|----------:|-------:|
