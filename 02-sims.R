@@ -7,18 +7,11 @@ library(doSNOW)
 library(iprior)
 theme_set(theme_classic())
 
+## ---- read_model_code --------
+# Read in the model codes and beta simulation values
 model_codes <- readxl::read_excel("model_codes.xlsx") %>%
   mutate(code = paste0(x1, x2, x3, x1x2, x1x3, x2x3, x1x2x3, sep = ""))
-
 beta_vals <- readxl::read_excel("model_codes.xlsx", sheet = "beta") 
-  # mutate(code = paste0(as.numeric(x1 > 0), 
-  #                      as.numeric(x2 > 0), 
-  #                      as.numeric(x3 > 0), 
-  #                      as.numeric(x1x2 > 0), 
-  #                      as.numeric(x1x3 > 0), 
-  #                      as.numeric(x2x3 > 0), 
-  #                      as.numeric(x1x2x3 > 0), 
-  #                      sep = ""))
 
 # > model_codes
 # # A tibble: 19 × 8
@@ -44,6 +37,8 @@ beta_vals <- readxl::read_excel("model_codes.xlsx", sheet = "beta")
 #  18     1     1     1     0     0     0      0 1110000
 #  19     0     0     0     0     0     0      0 0000000
 
+## ---- sim_fn --------
+# The simulation function
 the_sim_fn <- function(nsim = 20, n = 200, corr = 0, err.sd = 1.5,
                        beta.true = c(1, 1, 1, 0.5, 0.5, 0.5, 0.25)) {
   
@@ -193,8 +188,13 @@ the_sim_fn <- function(nsim = 20, n = 200, corr = 0, err.sd = 1.5,
   the.output
 }
 
+
+
+## ---- run_sim --------
+
 Nsim <- 10000
 
+# Correlated errors
 myres <- list()
 for (i in seq_len(nrow(beta_vals))) {
   myres[[i]] <- the_sim_fn(nsim = Nsim, n = 100, corr = 0.5, err.sd = 3,
@@ -203,6 +203,7 @@ for (i in seq_len(nrow(beta_vals))) {
 
 save(myres, file = "simres.RData")
 
+# Uncorrelated errors
 myres_uncorr <- list()
 for (i in seq_len(nrow(beta_vals))) {
   myres_uncorr[[i]] <- the_sim_fn(nsim = Nsim, n = 100, corr = 0, err.sd = 3,

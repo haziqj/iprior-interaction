@@ -4,12 +4,16 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::read_chunk("02-sims.R")
+library(tidyverse)
+library(iprior)
+library(kableExtra)
 ```
 
 This contains the R code for our paper.
 
-    Wicher Bergsma, Haziq Jamil (2022). *Additive interaction modelling using I-priors*.
+> Wicher Bergsma, Haziq Jamil (2022). *Additive interaction modelling using I-priors*.
 
 The key documents are
 
@@ -20,4 +24,19 @@ In this README, the main summary of findings are presented.
 
 ## Simulations
 
-## 
+Data pairs \$(y_i,x_i)\$, where $x_i\in\mathbb R^3$, were simulated according to the following model
+
+$$
+y_i = \beta_1 x_{i1} 
+$$
+
+The coefficients for the simulations were as follows.
+
+```{r read_model_code}
+```
+
+```{r}
+kbl(beta_vals, format = "pipe")
+```
+
+## Functional response model
