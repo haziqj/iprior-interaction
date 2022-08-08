@@ -8,7 +8,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, fig.height = 3.5, fig.width = 6)
+knitr::opts_chunk$set(echo = FALSE, fig.height = 3.5, fig.width = 6, 
+                      fig.path = "figure/")
 knitr::read_chunk("02-sims.R")
 library(tidyverse)
 library(iprior)
@@ -56,7 +57,7 @@ The results below show proportion of times that each method selected the true mo
 knitr::read_chunk("03-sims_analysis.R")
 ```
 
-```{r, message = FALSE}
+```{r sims_uncorr, message = FALSE}
 <<simres_fn>>
 <<simres2>>
 res_tab2 %>%
@@ -66,7 +67,7 @@ res_tab2 %>%
 ### Correlated errors
 
 
-```{r, message = FALSE}
+```{r sims_corr, message = FALSE}
 <<simres1>>
 res_tab1 %>%
   kbl(format = "pipe", row.names = TRUE, digits = 2)
@@ -74,7 +75,7 @@ res_tab1 %>%
 
 ## Functional response model
 
-```{r}
+```{r cow_plot}
 <<load_cow_data>>
 <<plot_cow_data>>
 ```

@@ -47,7 +47,7 @@ true model. Higher is better.
 
 ### Uncorrelated errors
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](figure/sims_uncorr-1.png)<!-- -->
 
 |     | mod     | iprior | lasso | spikeslab | gprior |
 |:----|:--------|-------:|------:|----------:|-------:|
@@ -62,7 +62,7 @@ true model. Higher is better.
 
 ### Correlated errors
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](figure/sims_corr-1.png)<!-- -->
 
 |     | mod     | iprior | lasso | spikeslab | gprior |
 |:----|:--------|-------:|------:|----------:|-------:|
@@ -77,4 +77,4 @@ true model. Higher is better.
 
 ## Functional response model
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](figure/cow_plot-1.png)<!-- -->
