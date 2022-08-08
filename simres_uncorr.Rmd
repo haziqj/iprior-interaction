@@ -1,0 +1,154 @@
+---
+title: "Simulation Results for Linear Models (uncorrelated errors)"
+# author: "Haziq"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include = FALSE}
+library(tidyverse)
+library(kableExtra)
+
+model_codes <- readxl::read_excel("model_codes.xlsx") %>%
+  mutate(code = paste0(x1, x2, x3, x1x2, x1x3, x2x3, x1x2x3, sep = ""))
+beta_vals <- readxl::read_excel("model_codes.xlsx", sheet = "beta") %>%
+  mutate(code = paste0(
+    ifelse(x1 > 0, 1, 0),
+    ifelse(x2 > 0, 1, 0),
+    ifelse(x3 > 0, 1, 0),
+    ifelse(x1x2 > 0, 1, 0),
+    ifelse(x1x3 > 0, 1, 0),
+    ifelse(x2x3 > 0, 1, 0),
+    ifelse(x1x2x3 > 0, 1, 0),
+    sep = "") %>% as.character()
+  )
+
+
+res_cleanup <- function(x) {
+  # mutate(x, no = ifelse(prop < 0.05, NA, no)) %>%
+  #   drop_na()
+  x
+}
+
+res_final_tab <- function(x, true.mod = "1111111") {
+  the.names <- names(x[c("iprior", "lasso", "spikeslab", "gprior")])
+  do.call(bind_rows, mapply(cbind, x[c("iprior", "lasso", "spikeslab", "gprior")], 
+                            "method" = the.names, SIMPLIFY = F)) %>%
+    mutate(method = factor(method, levels = the.names)) %>%
+    filter(mod == true.mod) %>%
+    group_by(method) %>%
+    select(mod, prop) 
+}
+```
+
+
+# Summary
+
+## Results for error sd = 3 and corr = 0
+
+
+```{r, message = FALSE, echo = FALSE}
+load("simres_uncorr.RData")
+res_tab <- NULL
+for (i in seq_len(length(myres_uncorr))) {
+  res_tab <- bind_rows(res_tab,
+                       res_final_tab(myres_uncorr[[i]], beta_vals[i, 8, drop = TRUE]) 
+  )
+}
+res_tab %>% 
+  pivot_wider(names_from = method, values_from = prop) %>%
+  replace(is.na(.), 0) %>%
+  kbl(booktabs = TRUE, position = "h", digits = 2) %>%
+  kable_styling(position = "center", latex_options = "HOLD_position")
+```
+
+
+\newpage
+
+### Model `r beta_vals[1, 8, drop = TRUE]`
+
+- True value: `r myres_uncorr[[1]]$beta.true`
+- `r paste0("nsim = ", myres_uncorr[[1]]$nsim, ", n = ", myres_uncorr[[1]]$n, ", corr = ", myres_uncorr[[1]]$corr, ", err.sd = ", myres_uncorr[[1]]$err.sd)`
+
+```{r echo = FALSE}
+lapply(myres_uncorr[[1]][c("iprior", "lasso", "spikeslab", "gprior")], res_cleanup)
+```
+\newpage
+
+
+### Model `r beta_vals[2, 8, drop = TRUE]`
+
+- True value: `r myres_uncorr[[2]]$beta.true`
+- `r paste0("nsim = ", myres_uncorr[[2]]$nsim, ", n = ", myres_uncorr[[2]]$n, ", corr = ", myres_uncorr[[2]]$corr, ", err.sd = ", myres_uncorr[[2]]$err.sd)`
+
+```{r echo = FALSE}
+lapply(myres_uncorr[[2]][c("iprior", "lasso", "spikeslab", "gprior")], res_cleanup)
+```
+\newpage
+
+
+### Model `r beta_vals[3, 8, drop = TRUE]`
+
+- True value: `r myres_uncorr[[3]]$beta.true`
+- `r paste0("nsim = ", myres_uncorr[[3]]$nsim, ", n = ", myres_uncorr[[3]]$n, ", corr = ", myres_uncorr[[3]]$corr, ", err.sd = ", myres_uncorr[[3]]$err.sd)`
+
+```{r echo = FALSE}
+lapply(myres_uncorr[[3]][c("iprior", "lasso", "spikeslab", "gprior")], res_cleanup)
+```
+\newpage
+
+### Model `r beta_vals[4, 8, drop = TRUE]`
+
+- True value: `r myres_uncorr[[4]]$beta.true`
+- `r paste0("nsim = ", myres_uncorr[[4]]$nsim, ", n = ", myres_uncorr[[4]]$n, ", corr = ", myres_uncorr[[4]]$corr, ", err.sd = ", myres_uncorr[[4]]$err.sd)`
+
+```{r echo = FALSE}
+lapply(myres_uncorr[[4]][c("iprior", "lasso", "spikeslab", "gprior")], res_cleanup)
+```
+\newpage
+
+### Model `r beta_vals[5, 8, drop = TRUE]`
+
+- True value: `r myres_uncorr[[5]]$beta.true`
+- `r paste0("nsim = ", myres_uncorr[[5]]$nsim, ", n = ", myres_uncorr[[5]]$n, ", corr = ", myres_uncorr[[5]]$corr, ", err.sd = ", myres_uncorr[[5]]$err.sd)`
+
+```{r echo = FALSE}
+lapply(myres_uncorr[[5]][c("iprior", "lasso", "spikeslab", "gprior")], res_cleanup)
+```
+\newpage
+
+
+### Model `r beta_vals[6, 8, drop = TRUE]`
+
+- True value: `r myres_uncorr[[6]]$beta.true`
+- `r paste0("nsim = ", myres_uncorr[[6]]$nsim, ", n = ", myres_uncorr[[6]]$n, ", corr = ", myres_uncorr[[6]]$corr, ", err.sd = ", myres_uncorr[[6]]$err.sd)`
+
+```{r echo = FALSE}
+lapply(myres_uncorr[[6]][c("iprior", "lasso", "spikeslab", "gprior")], res_cleanup)
+```
+\newpage
+
+
+### Model `r beta_vals[7, 8, drop = TRUE]`
+
+- True value: `r myres_uncorr[[7]]$beta.true`
+- `r paste0("nsim = ", myres_uncorr[[7]]$nsim, ", n = ", myres_uncorr[[7]]$n, ", corr = ", myres_uncorr[[7]]$corr, ", err.sd = ", myres_uncorr[[7]]$err.sd)`
+
+```{r echo = FALSE}
+lapply(myres_uncorr[[7]][c("iprior", "lasso", "spikeslab", "gprior")], res_cleanup)
+```
+\newpage
+
+### Model `r beta_vals[8, 8, drop = TRUE]`
+
+- True value: `r myres_uncorr[[8]]$beta.true`
+- `r paste0("nsim = ", myres_uncorr[[8]]$nsim, ", n = ", myres_uncorr[[8]]$n, ", corr = ", myres_uncorr[[8]]$corr, ", err.sd = ", myres_uncorr[[8]]$err.sd)`
+
+```{r echo = FALSE}
+lapply(myres_uncorr[[8]][c("iprior", "lasso", "spikeslab", "gprior")], res_cleanup)
+```
+\newpage
+
+
+
+

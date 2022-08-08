@@ -13,7 +13,9 @@ The key documents are
 2.  `01-cow.R` contains the code for the functional response model in
     Section 6.
 
-In this README, the main summary of findings are presented.
+In this README, the main summary of findings are presented. Full details
+of the simulation results are found in the pdf files `simres_corr.pdf`
+and `simres_uncorr.pdf`.
 
 ## Simulations
 

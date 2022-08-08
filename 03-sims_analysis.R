@@ -39,7 +39,7 @@ res_tab %>%
   pivot_wider(names_from = method, values_from = prop) %>%
   replace(is.na(.), 0) -> res_tab1
 
-# Rada plot
+# Radar plot
 res_tab %>%
   pivot_wider(names_from = mod, values_from = prop) %>%
   replace(is.na(.), 0) %>%
@@ -57,7 +57,7 @@ res_tab %>%
   pivot_wider(names_from = method, values_from = prop) %>%
   replace(is.na(.), 0) -> res_tab2
 
-# Rada plot
+# Radar plot
 res_tab %>%
   pivot_wider(names_from = mod, values_from = prop) %>%
   replace(is.na(.), 0) %>%
