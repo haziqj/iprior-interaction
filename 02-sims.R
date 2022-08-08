@@ -11,7 +11,17 @@ theme_set(theme_classic())
 # Read in the model codes and beta simulation values
 model_codes <- readxl::read_excel("model_codes.xlsx") %>%
   mutate(code = paste0(x1, x2, x3, x1x2, x1x3, x2x3, x1x2x3, sep = ""))
-beta_vals <- readxl::read_excel("model_codes.xlsx", sheet = "beta") 
+beta_vals <- readxl::read_excel("model_codes.xlsx", sheet = "beta") %>%
+  mutate(code = paste0(
+    ifelse(x1 > 0, 1, 0),
+    ifelse(x2 > 0, 1, 0),
+    ifelse(x3 > 0, 1, 0),
+    ifelse(x1x2 > 0, 1, 0),
+    ifelse(x1x3 > 0, 1, 0),
+    ifelse(x2x3 > 0, 1, 0),
+    ifelse(x1x2x3 > 0, 1, 0),
+    sep = "") %>% as.character()
+  )
 
 # > model_codes
 # # A tibble: 19 × 8
@@ -198,7 +208,7 @@ Nsim <- 10000
 myres <- list()
 for (i in seq_len(nrow(beta_vals))) {
   myres[[i]] <- the_sim_fn(nsim = Nsim, n = 100, corr = 0.5, err.sd = 3,
-                           beta.true = beta_vals[i, ] %>% as.numeric())
+                           beta.true = beta_vals[i, 1:7] %>% as.numeric())
 }
 
 save(myres, file = "simres.RData")
@@ -207,7 +217,7 @@ save(myres, file = "simres.RData")
 myres_uncorr <- list()
 for (i in seq_len(nrow(beta_vals))) {
   myres_uncorr[[i]] <- the_sim_fn(nsim = Nsim, n = 100, corr = 0, err.sd = 3,
-                                  beta.true = beta_vals[i, ] %>% as.numeric())
+                                  beta.true = beta_vals[i, 1:7] %>% as.numeric())
 }
 
 save(myres_uncorr, file = "simres_uncorr.RData")
