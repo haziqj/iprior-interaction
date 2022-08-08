@@ -65,12 +65,8 @@ true model (higher is better).
 
 The geometric mean
 
-|           |    x |
-|:----------|-----:|
-| iprior    | 0.33 |
-| lasso     | 0.15 |
-| spikeslab | 0.19 |
-| gprior    | 0.21 |
+    ##    iprior     lasso spikeslab    gprior 
+    ##     0.333     0.147     0.185     0.210
 
 ### Correlated errors
 
@@ -89,12 +85,8 @@ The geometric mean
 
 The geometric mean
 
-|           |    x |
-|:----------|-----:|
-| iprior    | 0.38 |
-| lasso     | 0.17 |
-| spikeslab | 0.08 |
-| gprior    | 0.14 |
+    ##    iprior     lasso spikeslab    gprior 
+    ##     0.384     0.172     0.085     0.139
 
 ## Functional response model
 
