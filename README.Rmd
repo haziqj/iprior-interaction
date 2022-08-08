@@ -67,7 +67,7 @@ The geometric mean
 ```{r}
 res_tab2[, -1] %>% 
   apply(., 2, function(x) exp(sum(log(x[x > 0])) / length(x))) %>%
-  kbl(format = "pipe", digits = 2)
+  round(3)
 ```
 
 ### Correlated errors
@@ -84,7 +84,7 @@ The geometric mean
 ```{r}
 res_tab1[, -1] %>% 
   apply(., 2, function(x) exp(sum(log(x[x > 0])) / length(x))) %>%
-  kbl(format = "pipe", digits = 2)
+  round(3)
 ```
 
 ## Functional response model
