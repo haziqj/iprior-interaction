@@ -2,7 +2,7 @@
 title: "I-priors and interactions"
 output: 
   github_document:
-    math_method: NULL
+    # math_method: NULL
     html_preview: true
     keep_html: true
 ---
