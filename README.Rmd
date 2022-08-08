@@ -10,13 +10,13 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, #fig.height = 3.5, fig.width = 6, 
                       fig.path = "figure/")
-knitr::read_chunk("02-sims.R")
 library(tidyverse)
 library(iprior)
 library(kableExtra)
 library(ggradar)
 theme_set(theme_classic())
 knitr::read_chunk("01-cow.R")
+knitr::read_chunk("02-sims.R")
 ```
 
 This contains the R code for our paper.
@@ -38,18 +38,16 @@ Data pairs \$(y_i,x_i)\$, where \$x_i\\in\\mathbb R^3\$ for \$i=1,\\dots,n\$, we
 y_i = \\beta_1 x_{i1} + \\beta_2 x_{i2} + \\beta_3 x_{i3} + \\beta_4 x_{i1}x_{i2} + \\beta_5 x_{i1}x_{i3} + \\beta_6 x_{i2}x_{i3} + \\beta_7 x_{i1}x_{i2}x_{i3} + \\epsilon_i
 \$$
 
-where \$\\epsilon_i\\sim N(0,\\sigma^2)\$ such that \$\\text{Corr}(\\epsilon_i,\\epsilon_j)=\\rho\$, for \$i\\neq j\$. The simulation settings were \$n=100\$, \$\\sigma=3\$, \$\\rho\\in\\{0,0.5\\}\$, and the simulations were repeated for a total of \$B=10,000\$ times.
+where \$\\epsilon_i\\sim N(0,\\sigma^2)\$ such that \$\\text{Corr}(\\epsilon_i,\\epsilon_j)=\\rho\$, for \$i\\neq j\$. The simulation settings were \$n=100\$, \$\\sigma=3\$, \$\\rho\\in\\{0,0.5\\}\$. The coefficients were varied according to the table below
 
-The coefficients for the simulations were as follows.
-
-```{r read_model_code}
-```
-
-```{r}
+```{r }
+<<read_model_code>>
 kbl(beta_vals, format = "pipe", row.names = TRUE)
 ```
 
-The results below show proportion of times that each method selected the true model. Higher is better.
+For each set of true values of the coefficients, the four methods proposed the likeliest model to have generated the data set, from a search of hierarchically nested interaction models. This was replicated a total of \$B=10,000\$ times for each true value set.
+
+The results below show proportion of times that each method selected the true model (higher is better).
 
 ### Uncorrelated errors
 
@@ -64,6 +62,12 @@ res_tab2 %>%
   kbl(format = "pipe", row.names = TRUE, digits = 2)
 ```
 
+The geometric mean
+
+```{r}
+res_tab2[, -1] %>% apply(., 2, function(x) exp(sum(log(x[x > 0])) / length(x)))
+```
+
 ### Correlated errors
 
 
@@ -71,6 +75,12 @@ res_tab2 %>%
 <<simres1>>
 res_tab1 %>%
   kbl(format = "pipe", row.names = TRUE, digits = 2)
+```
+
+The geometric mean
+
+```{r}
+res_tab1[, -1] %>% apply(., 2, function(x) exp(sum(log(x[x > 0])) / length(x)))
 ```
 
 ## Functional response model

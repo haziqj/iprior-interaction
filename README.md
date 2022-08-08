@@ -26,10 +26,8 @@ x\_{i1}x\_{i2} + \beta_5 x\_{i1}x\_{i3} + \beta_6 x\_{i2}x\_{i3} +
 
 where $\epsilon_i\sim N(0,\sigma^2)$ such that
 $\text{Corr}(\epsilon_i,\epsilon_j)=\rho$, for $i\neq j$. The simulation
-settings were $n=100$, $\sigma=3$, $\rho\in\\{0,0.5\\}$, and the
-simulations were repeated for a total of $B=10,000$ times.
-
-The coefficients for the simulations were as follows.
+settings were $n=100$, $\sigma=3$, $\rho\in\\{0,0.5\\}$. The
+coefficients were varied according to the table below
 
 |     |  x1 |  x2 |  x3 | x1x2 | x1x3 | x2x3 | x1x2x3 | code    |
 |:----|----:|----:|----:|-----:|-----:|-----:|-------:|:--------|
@@ -42,8 +40,13 @@ The coefficients for the simulations were as follows.
 | 7   |   1 |   1 |   1 |  0.5 |  0.5 |  0.5 |   0.00 | 1111110 |
 | 8   |   1 |   1 |   1 |  0.5 |  0.5 |  0.5 |   0.25 | 1111111 |
 
+For each set of true values of the coefficients, the four methods
+proposed the likeliest model to have generated the data set, from a
+search of hierarchically nested interaction models. This was replicated
+a total of $B=10,000$ times for each true value set.
+
 The results below show proportion of times that each method selected the
-true model. Higher is better.
+true model (higher is better).
 
 ### Uncorrelated errors
 
@@ -60,6 +63,11 @@ true model. Higher is better.
 | 7   | 1111110 |   0.15 |  0.09 |      0.06 |   0.00 |
 | 8   | 1111111 |   0.18 |  0.06 |      0.09 |   0.98 |
 
+The geometric mean
+
+    ##    iprior     lasso spikeslab    gprior 
+    ## 0.3333263 0.1466473 0.1853580 0.2099114
+
 ### Correlated errors
 
 ![](figure/sims_corr-1.png)<!-- -->
@@ -74,6 +82,11 @@ true model. Higher is better.
 | 6   | 1111100 |   0.28 |  0.11 |      0.02 |   0.00 |
 | 7   | 1111110 |   0.17 |  0.12 |      0.01 |   0.00 |
 | 8   | 1111111 |   0.43 |  0.15 |      0.06 |   0.77 |
+
+The geometric mean
+
+    ##     iprior      lasso  spikeslab     gprior 
+    ## 0.38363847 0.17185147 0.08453986 0.13900987
 
 ## Functional response model
 
