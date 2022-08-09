@@ -5,6 +5,8 @@ options(dplyr.summarise.inform = FALSE)
 library(BAS)
 library(doSNOW)
 library(iprior)
+# devtools::install_github("haziqj/ipriorBVS")
+library(ipriorBVS)
 theme_set(theme_classic())
 
 ## ---- read_model_code --------
@@ -78,24 +80,24 @@ the_sim_fn <- function(nsim = 20, n = 200, corr = 0, err.sd = 1.5,
     c(res[which.min(res)], sd(res))
   }
   
-  check_lasso <- function(beta) {
-    main.eff <- beta[1:3]
-    twoway.int <- beta[4:6]
-    threeway.int <- beta[7]
-    if (threeway.int > 0) {
-      if (any(main.eff == 0)) return("invalid")
-    }
-    if (twoway.int[1] > 0) {
-      if (main.eff[1] == 0 | main.eff[2] == 0) return("invalid")
-    }
-    if (twoway.int[2] > 0) {
-      if (main.eff[1] == 0 | main.eff[3] == 0) return("invalid")
-    }
-    if (twoway.int[3] > 0) {
-      if (main.eff[2] == 0 | main.eff[3] == 0) return("invalid")
-    }
-    return("valid")
-  }
+  # check_lasso <- function(beta) {
+  #   main.eff <- beta[1:3]
+  #   twoway.int <- beta[4:6]
+  #   threeway.int <- beta[7]
+  #   if (threeway.int > 0) {
+  #     if (any(main.eff == 0)) return("invalid")
+  #   }
+  #   if (twoway.int[1] > 0) {
+  #     if (main.eff[1] == 0 | main.eff[2] == 0) return("invalid")
+  #   }
+  #   if (twoway.int[2] > 0) {
+  #     if (main.eff[1] == 0 | main.eff[3] == 0) return("invalid")
+  #   }
+  #   if (twoway.int[3] > 0) {
+  #     if (main.eff[2] == 0 | main.eff[3] == 0) return("invalid")
+  #   }
+  #   return("valid")
+  # }
   
   combine_sim_res <- function(z) {
     final.res <- list()
@@ -161,10 +163,9 @@ the_sim_fn <- function(nsim = 20, n = 200, corr = 0, err.sd = 1.5,
       res_gprior <- as.numeric(beta.gprior != 0)
       
       # Spike and slab -----------------------------------------------------------
-      mod <- bas.lm(y ~ X1 * X2 * X3, dat, force.heredity = TRUE,
-                    prior = "g-prior", alpha = 100)
-      beta.spikeslab <- coef(mod, n.models = 1)$postmean[-1]
-      res_spikeslab <- as.numeric(beta.spikeslab != 0)
+      mod <- ipriorBVS::ipriorBVS(y, X_lasso, model = "flat_prior", 
+                                  stand.x = FALSE, stand.y = FALSE)
+      res_spikeslab <- ipriorBVS::get_hpm(mod)
       
       list(lasso = res_lasso, lm = res_lm, iprior = res_iprior, 
            gprior = res_gprior, spikeslab = res_spikeslab, 
