@@ -11,6 +11,7 @@ cattle$id <- as.factor(cattle$id)  # convert to factors
 # levels(cattle$group) <- c("Treatment A", "Treatment B")
 # str(cattle)
 # write_csv(cattle, file = "cattle.csv")
+N <- nrow(cattle)
 
 ## ---- plot_cow_data --------
 ggplot(cattle, aes(time, weight, group = id, col = group)) +
@@ -67,12 +68,30 @@ est_all <- function(kernel = "fbm,0.5", est.hurst = FALSE) {
 
 # Hurst = 0.5
 res1 <- est_all(kernel = "fbm,0.5", est.hurst = FALSE)
+res1 <- res1 %>%
+  mutate(
+    k = c(2, 3, 3, 4, 4),
+    AIC = 2 * k - 2 * loglik,
+    BIC = k * log(N) -2 * loglik 
+  )
 
 # Hurst = 0.3
 res2 <- est_all(kernel = "fbm,0.3", est.hurst = FALSE)
+res2 <- res2 %>%
+  mutate(
+    k = c(2, 3, 3, 4, 4),
+    AIC = 2 * k - 2 * loglik,
+    BIC = k * log(N) -2 * loglik 
+  )
 
 # Estimate hurst
 res3 <- est_all(kernel = "fbm", est.hurst = TRUE)
+res3 <- res3 %>%
+  mutate(
+    k = c(3, 4, 4, 5, 5),
+    AIC = 2 * k - 2 * loglik,
+    BIC = k * log(N) -2 * loglik 
+  )
 
 save(res1, res2, res3, file = "cowres.RData")
 

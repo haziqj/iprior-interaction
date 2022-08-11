@@ -95,11 +95,30 @@ res_tab1[, -1] %>%
 <<plot_cow_data>>
 ```
 
+The model fitted was an I-prior model with ANOVA kernel (Pearson & fBm). 
+The results are tabulated below.
 
+### Fixed hurst = 0.5
 
+```{r}
+load("cowres.RData")
+mutate(res1, formula = paste0("`", formula, "`")) %>%
+  kbl(., format = "pipe", digits = 2)
+```
 
+### Fixed hurst = 0.3
 
+```{r}
+mutate(res2, formula = paste0("`", formula, "`")) %>%
+  kbl(., format = "pipe", digits = 2)
+```
 
+### Estimated hurst value
+
+```{r}
+mutate(res3, formula = paste0("`", formula, "`")) %>%
+  kbl(., format = "pipe", digits = 2)
+```
 
 
 

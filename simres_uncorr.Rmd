@@ -25,9 +25,13 @@ beta_vals <- readxl::read_excel("model_codes.xlsx", sheet = "beta") %>%
 
 
 res_cleanup <- function(x) {
-  # mutate(x, no = ifelse(prop < 0.05, NA, no)) %>%
-  #   drop_na()
-  x
+  mutate(x, no = ifelse(prop < 0.05, NA, no)) %>%
+    drop_na()
+  # x
+  # x %>% 
+  #   drop_na() %>%
+  #   mutate(prop2 = prop,
+  #          prop = prop / sum(prop))
 }
 
 res_final_tab <- function(x, true.mod = "1111111") {
