@@ -35,7 +35,7 @@ est_all <- function(kernel = "fbm,0.5", est.hurst = FALSE) {
                  est.hurst = est.hurst, control = list(restarts = 0))
   
   # Model 4: {C,X}
-  mod4 <- iprior(weight ~ group * time +  id * time, cattle, kernel = kernel,
+  mod4 <- iprior(weight ~ (group +  id) * time, cattle, kernel = kernel,
                  est.hurst = est.hurst, control = list(restarts = 0))
   
   # Model 5: {CX}
@@ -52,11 +52,17 @@ est_all <- function(kernel = "fbm,0.5", est.hurst = FALSE) {
            psi = iprior::dec_plac(get_psi(mod), 5),
            hurst = get_hurst(mod))
   }
-  tab <- rbind(
-    cow_table(mod1), cow_table(mod2), cow_table(mod3),
-    cow_table(mod4), cow_table(mod5)
+  
+  bind_cols(
+    model = 1:5,
+    bind_rows(
+      cow_table(mod1)[1, ],
+      cow_table(mod2)[1, ],
+      cow_table(mod3)[1, ],
+      cow_table(mod4)[1, ],
+      cow_table(mod5)[1, ]
+    )
   )
-  return(cbind(model = 1:5, tab))
 }
 
 # Hurst = 0.5
