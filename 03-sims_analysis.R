@@ -43,7 +43,7 @@ res_tab %>%
 res_tab %>%
   pivot_wider(names_from = mod, values_from = prop) %>%
   replace(is.na(.), 0) %>%
-  ggradar()
+  ggradar(group.point.size = 3)
 
 ## ---- simres2 ----
 load("simres_uncorr.RData")
