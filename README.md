@@ -54,7 +54,8 @@ search of hierarchically nested interaction models. This was replicated
 a total of $B=10,000$ times for each true value set.
 
 The results below show proportion of times that each method selected the
-true model (higher is better).
+true model (higher is better). The geometric mean was used as a summary
+measure of the simulation runs.
 
 ### Uncorrelated errors
 
