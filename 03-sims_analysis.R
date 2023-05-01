@@ -43,7 +43,7 @@ res_tab %>%
 res_tab %>%
   pivot_wider(names_from = mod, values_from = prop) %>%
   replace(is.na(.), 0) %>%
-  ggradar(group.point.size = 3)
+  ggradar(group.point.size = 3) 
 
 ## ---- simres2 ----
 load("simres_uncorr.RData")
@@ -64,34 +64,32 @@ res_tab %>%
   ggradar(group.point.size = 3)
 
 ## ---- overall_plot ----
-bind_rows(
+plot_df <-
   bind_rows(
-    bind_cols(res_tab1, sim = "Correlated"),
-    bind_cols(res_tab2, sim = "Uncorrelated")
-  ),
-  bind_cols(
-    bind_rows(
-      res_tab1,
-      res_tab2
-    ),
-    sim = "Overall"
-  )
-) %>%
+    bind_rows(bind_cols(res_tab1, sim = "Correlated"),
+              bind_cols(res_tab2, sim = "Uncorrelated")),
+    bind_cols(bind_rows(res_tab1,
+                        res_tab2),
+              sim = "Overall")
+  ) %>%
   pivot_longer(cols = c(iprior, lasso, spikeslab, gprior), names_to = "method",
                values_to = "prop") %>%
   group_by(method, sim) %>%
-  summarise(prop = exp(sum(log(prop[prop > 0])) / length(prop))) %>%
-  mutate(method = factor(method, levels = c("iprior", "lasso", "spikeslab", "gprior")),
-         sim = factor(sim, levels = c("Uncorrelated", "Correlated", "Overall"))) -> plot_df
+  summarise(prop = exp(sum(log(prop[prop > 0])) / length(prop)),
+            .groups = "drop") %>%
+  mutate(method = factor(method, levels = c("iprior", "lasso", "spikeslab", 
+                                            "gprior")),
+         sim = factor(sim, levels = c("Uncorrelated", "Correlated", "Overall")))
 
 levels(plot_df$method) <- c("I-prior", "Lasso", "Spike & Slab", "g-prior")
 
-
 ggplot(plot_df, aes(method, prop, fill = sim)) +
   geom_bar(stat = "identity", position = "dodge") +
-  scale_fill_viridis_d() +
-  labs(x = NULL, y = "Proportion correct selection", fill = NULL) -> p
+  geom_text(aes(label = iprior::dec_plac(prop, 2)), vjust = -0.2,
+            position = position_dodge(1)) +
+  scale_fill_manual(values = my_cols[1:3]) +
+  labs(x = NULL, y = "Proportion correct selection", fill = NULL) 
 
-ggsave("simres.pdf", p, width = 8, height = 4)
+# ggsave("simres.pdf", width = 8, height = 4)
 
 

@@ -1,8 +1,4 @@
-# devtools::install_github("haziqj/iprior")
-library(iprior)
-library(tidyverse)
-library(kableExtra)
-theme_set(theme_classic())
+source("00-common.R")
 
 ## ---- load_cow_data --------
 data(cattle, package = "jmcm")
@@ -16,11 +12,11 @@ N <- nrow(cattle)
 ## ---- plot_cow_data --------
 ggplot(cattle, aes(time, weight, group = id, col = group)) +
   geom_line() +
-  labs(x = "Time (days)", y = "Weight (kg)", col = "Treatment\ngroup")
-
+  labs(x = "Time (days)", y = "Weight (kg)", col = "Treatment\ngroup") +
+  scale_x_continuous(breaks = unique(cattle$time)) +
+  scale_colour_manual(values = my_cols[c(1, 3)])
+  
 ## ---- est_cow_data --------
-
-
 est_all <- function(kernel = "fbm,0.5", est.hurst = FALSE) {
   
   # Model 1: {}
@@ -42,7 +38,6 @@ est_all <- function(kernel = "fbm,0.5", est.hurst = FALSE) {
   # Model 5: {CX}
   mod5 <- iprior(weight ~ group * id * time, cattle, kernel = kernel, 
                  est.hurst = est.hurst, control = list(restarts = 0))
-  
   
   # Results table
   cow_table <- function(mod) {

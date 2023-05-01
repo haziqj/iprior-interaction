@@ -3,33 +3,39 @@ I-priors and interactions
 
 This contains the R code for our paper.
 
-> Wicher Bergsma, Haziq Jamil (2022). *Additive interaction modelling
+> Wicher Bergsma, Haziq Jamil (2023). *Additive interaction modelling
 > using I-priors*.
 
-The key documents are
+The key documents are as follows.
 
-1.  `02-sims.R` and `03-sims_analysis.R` contains the code for the
-    simulations in Section 5.
-2.  `01-cow.R` contains the code for the functional response model in
-    Section 6.
+1.  [`02-sims.R`](02-sims.R) and
+    [`03-sims_analysis.R`](03-sims_analysis.R) contain the code for the
+    simulations study detailed in Section 5 of the manuscript.
+2.  [`01-cow.R`](%6001-cow.R%60) contains the code for the functional
+    response model in the application section (Section 6) of the
+    manuscript.
 
 In this README, the main summary of findings are presented. Full details
-of the simulation results are found in the pdf files `simres_corr.pdf`
-and `simres_uncorr.pdf`.
+of the simulation results are found in the pdf files
+[`simres_corr.pdf`](%60simres_corr.pdf%60) and
+[`simres_uncorr.pdf`](%60simres_uncorr.pdf%60).
 
-## Simulations
+Please install the developmental version of the
+[`{iprior}`](https://github.com/haziqj/iprior) package.
 
-Data pairs $(y_i,x_i)$, where $x_i\in\mathbb R^3$ for $i=1,\dots,n$,
+## Simulation study
+
+Data pairs $(y_i,x_i)$, where \$x_i\in\mathbb R^3\$ for \$i=1,\dots,n\$,
 were simulated according to the following model
 
-$$ y_i = \beta_1 x\_{i1} + \beta_2 x\_{i2} + \beta_3 x\_{i3} + \beta_4
+\$\$ y_i = \beta_1 x\_{i1} + \beta_2 x\_{i2} + \beta_3 x\_{i3} + \beta_4
 x\_{i1}x\_{i2} + \beta_5 x\_{i1}x\_{i3} + \beta_6 x\_{i2}x\_{i3} +
-\beta_7 x\_{i1}x\_{i2}x\_{i3} + \epsilon_i $$
+\beta_7 x\_{i1}x\_{i2}x\_{i3} + \epsilon_i \$\$
 
-where $\epsilon_i\sim N(0,\sigma^2)$ such that
-$\text{Corr}(\epsilon_i,\epsilon_j)=\rho$, for $i\neq j$. The simulation
-settings were $n=100$, $\sigma=3$, $\rho\in\\{0,0.5\\}$. The
-coefficients were varied according to the table below
+where \$\epsilon_i\sim N(0,\sigma^2)\$ such that
+\$\text{Corr}(\epsilon_i,\epsilon_j)=\rho\$, for \$i\neq j\$. The
+simulation settings were \$n=100\$, \$\sigma=3\$, \$\rho\in\\0,0.5\\\$.
+The coefficients were varied according to the table below
 
 |     |  x1 |  x2 |  x3 | x1x2 | x1x3 | x2x3 | x1x2x3 | code    |
 |:----|----:|----:|----:|-----:|-----:|-----:|-------:|:--------|
@@ -45,7 +51,7 @@ coefficients were varied according to the table below
 For each set of true values of the coefficients, the four methods
 proposed the likeliest model to have generated the data set, from a
 search of hierarchically nested interaction models. This was replicated
-a total of $B=10,000$ times for each true value set.
+a total of \$B=10,000\$ times for each true value set.
 
 The results below show proportion of times that each method selected the
 true model (higher is better).
@@ -65,10 +71,12 @@ true model (higher is better).
 | 7   | 1111110 |   0.16 |  0.08 |      0.00 |   0.00 |
 | 8   | 1111111 |   0.19 |  0.06 |      0.00 |   0.98 |
 
-The geometric mean
-
-    ##    iprior     lasso spikeslab    gprior 
-    ##     0.337     0.146     0.031     0.204
+<!-- The geometric mean -->
+<!-- ```{r} -->
+<!-- res_tab2[, -1] %>%  -->
+<!--   apply(., 2, function(x) exp(sum(log(x[x > 0])) / length(x))) %>% -->
+<!--   round(3) -->
+<!-- ``` -->
 
 ### Correlated errors
 
@@ -85,10 +93,16 @@ The geometric mean
 | 7   | 1111110 |   0.18 |  0.13 |      0.00 |   0.00 |
 | 8   | 1111111 |   0.43 |  0.16 |      0.00 |   0.78 |
 
-The geometric mean
+<!-- The geometric mean -->
+<!-- ```{r} -->
+<!-- res_tab1[, -1] %>%  -->
+<!--   apply(., 2, function(x) exp(sum(log(x[x > 0])) / length(x))) %>% -->
+<!--   round(3) -->
+<!-- ``` -->
 
-    ##    iprior     lasso spikeslab    gprior 
-    ##     0.383     0.172     0.107     0.136
+### Summary of results
+
+![](figure/overall_plot-1.png)<!-- -->
 
 ## Functional response model
 
