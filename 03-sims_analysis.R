@@ -82,13 +82,22 @@ plot_df <-
          sim = factor(sim, levels = c("Uncorrelated", "Correlated", "Overall")))
 
 levels(plot_df$method) <- c("I-prior", "Lasso", "Spike & Slab", "g-prior")
+levels(plot_df$sim) <- c("Uncorrelated\ncovariates", "Correlated\ncovariates", 
+                         "Overall")
 
-ggplot(plot_df, aes(method, prop, fill = sim)) +
+plot_df %>%
+  filter(sim != "Overall") %>%
+  ggplot(aes(method, prop, fill = sim)) +
   geom_bar(stat = "identity", position = "dodge") +
   geom_text(aes(label = iprior::dec_plac(prop, 2)), vjust = -0.2,
             position = position_dodge(1)) +
-  scale_fill_manual(values = my_cols[1:3]) +
-  labs(x = NULL, y = "Proportion correct selection", fill = NULL) 
+  scale_fill_manual(values = my_cols[c(3, 1)]) +
+  labs(x = NULL, y = "Proportion correct selection", fill = NULL) +
+  theme(axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 11),
+        axis.title.y = element_text(size = 12)) +
+  theme(legend.spacing.y = unit(0.25, 'cm'))  +
+  guides(fill = guide_legend(byrow = TRUE))
 
 # ggsave("simres.pdf", width = 8, height = 4)
 
