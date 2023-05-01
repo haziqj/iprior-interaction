@@ -120,7 +120,11 @@ mutate(res3, formula = paste0("`", formula, "`")) %>%
   kbl(., format = "pipe", digits = 2)
 ```
 
+## Outro
 
+```{r}
+sessioninfo::session_info()
+```
 
 
 
