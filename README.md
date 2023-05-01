@@ -33,8 +33,8 @@ y_i = \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_3 x_{i3} + \beta_4 x_{i1}x_{i2} + 
 $$
 
 where $\epsilon_i\sim N(0,\sigma^2)$ such that
-$\operatorname{Corr}(x_{ij},x_{ik})=\rho$, for $j\neq k$. The simulation
-settings were $n=100$, $\sigma=3$, and $\rho\in\{0,0.5\}$. The
+$\text{Corr}(x_{ij},x_{ik})=\rho$, for $j\neq k$. The simulation
+settings were $n=100$, $\sigma=3$, and $\rho\in\\{0,0.5\\}$. The
 coefficients were varied according to the table below
 
 |     |  x1 |  x2 |  x3 | x1x2 | x1x3 | x2x3 | x1x2x3 | code    |
