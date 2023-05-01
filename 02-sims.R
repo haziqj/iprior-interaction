@@ -63,7 +63,7 @@ the_sim_fn <- function(nsim = 20, n = 200, corr = 0, err.sd = 1.5,
     }
     
     res <- NA
-    for (k in 1:1) {
+    for (k in 1:5) {
       optimres <- optim(rnorm(2), iprior_loglik_fn)
       res[k] <- optimres$value
     }
