@@ -32,20 +32,22 @@ Please install the developmental version of the [`{iprior}`](https://github.com/
 
 ## Simulation study
 
-Data pairs $(y_i,x_i)$, where \$x_i\\in\\mathbb R^3\$ for \$i=1,\\dots,n\$, were simulated according to the following model
+Data pairs $(y_i,x_i)$, where $x_i\in\mathbb R^3$ for $i=1,\dots,n$, were simulated according to the following model
 
-\$$
-y_i = \\beta_1 x_{i1} + \\beta_2 x_{i2} + \\beta_3 x_{i3} + \\beta_4 x_{i1}x_{i2} + \\beta_5 x_{i1}x_{i3} + \\beta_6 x_{i2}x_{i3} + \\beta_7 x_{i1}x_{i2}x_{i3} + \\epsilon_i
-\$$
+$$
+y_i = \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_3 x_{i3} + \beta_4 x_{i1}x_{i2} + \beta_5 x_{i1}x_{i3} + \beta_6 x_{i2}x_{i3} + \beta_7 x_{i1}x_{i2}x_{i3} + \epsilon_i
+$$
 
-where \$\\epsilon_i\\sim N(0,\\sigma^2)\$ such that \$\\text{Corr}(\\epsilon_i,\\epsilon_j)=\\rho\$, for \$i\\neq j\$. The simulation settings were \$n=100\$, \$\\sigma=3\$, \$\\rho\\in\\{0,0.5\\}\$. The coefficients were varied according to the table below
+where $\epsilon_i\sim N(0,\sigma^2)$ such that $\operatorname{Corr}(x_{ij},x_{ik})=\rho$, for $j\neq k$. 
+The simulation settings were $n=100$, $\sigma=3$, and $\rho\in\{0,0.5\}$. 
+The coefficients were varied according to the table below
 
 ```{r}
 <<read_model_code>>
 kbl(beta_vals, format = "pipe", row.names = TRUE)
 ```
 
-For each set of true values of the coefficients, the four methods proposed the likeliest model to have generated the data set, from a search of hierarchically nested interaction models. This was replicated a total of \$B=10,000\$ times for each true value set.
+For each set of true values of the coefficients, the four methods proposed the likeliest model to have generated the data set, from a search of hierarchically nested interaction models. This was replicated a total of $B=10,000$ times for each true value set.
 
 The results below show proportion of times that each method selected the true model (higher is better).
 
@@ -125,7 +127,3 @@ mutate(res3, formula = paste0("`", formula, "`")) %>%
 ```{r}
 sessioninfo::session_info()
 ```
-
-
-
-
